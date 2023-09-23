@@ -1,0 +1,79 @@
+/* ----------------- Class CSS -----------------*/
+/* navbar background color */
+.nb-background-color{
+    background-color:lightgreen;
+}
+/* navbar link text properties */
+.nbMenuItem{
+    font-size:25px;
+    margin-left:10px;
+    margin-right:10px;
+    color:black;
+}
+/* authors.html */
+.about{
+    width: 400px;
+    margin: auto;
+}
+.about-team{
+    color:black;
+}
+.authors{
+    background-color:#dbe3e7;
+}
+
+/* index.html */
+.showcase{
+    background-color: #9dd4b8;
+}
+.overview{
+    background-color: #dbe3e7;
+}
+
+/* Procedure.html */
+.procedure{
+    background-color: #dbe3e7;
+    padding:1px;
+}
+.howTo{
+    font-size:20px;
+}
+
+.ovPadLeft{
+    padding-left:20px;
+}
+.ovPadRight{
+    padding-right:20px;
+}
+.icon-white{
+    color:white;
+}
+.footer{
+    background-color:lightgreen; /* footer color */
+}
+/* ----------------- ID CSS -----------------*/
+
+/* -----------------Underline Animation CSS -----------------*/
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+    /*color: #0087ca;*/
+  }
+  
+.hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #eae6e6;
+    /*transform-origin: bottom right;*/
+    transition: transform 0.35s ease-out;
+}
+  
+.hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    /*transform-origin: bottom left;*/
+}
