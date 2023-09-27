@@ -1,7 +1,7 @@
 /* ----------------- Class CSS -----------------*/
 /* navbar background color */
 .nb-background-color{
-    background-color:lightgreen;
+    background-color:#25CB87;
 }
 /* navbar link text properties */
 .nbMenuItem{
@@ -19,20 +19,24 @@
     color:black;
 }
 .authors{
-    background-color:#dbe3e7;
+    background-color:#b6d3c4;
 }
 
 /* index.html */
 .showcase{
     background-color: #9dd4b8;
 }
+.showColor{
+    color:#202020;
+    font-weight:bold;
+}
 .overview{
-    background-color: #dbe3e7;
+    background-color: #b6d3c4;
 }
 
 /* Procedure.html */
 .procedure{
-    background-color: #dbe3e7;
+    background-color: #b6d3c4;
     padding:1px;
 }
 .howTo{
@@ -49,7 +53,12 @@
     color:white;
 }
 .footer{
-    background-color:lightgreen; /* footer color */
+    background-color:#25CB87; /* footer color */
+}
+
+.small-20{
+    width:20%;
+    height:20%;
 }
 /* ----------------- ID CSS -----------------*/
 
