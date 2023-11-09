@@ -3,7 +3,7 @@
 */
 
 async function getData(){
-    const response = await fetch("../data/global-mean-temp.csv")
+    const response = await fetch("../data/avgChangeAngle.csv")
     const data = await response.text() // CSV is in text format
     console.log(data)
 
