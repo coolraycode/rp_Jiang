@@ -7,31 +7,30 @@ async function getData(){
     const data = await response.text() // CSV is in text format
     console.log(data)
 
-    const xYears = []       // x-axis labels = years values
-    const yTemps = []       // y-axis global temp values
-    const yNHTemps = []     // y-axis NH temp values
-    const ySHTemps = []     // y-axis SH temp values
+    const xTime = []        // x-axis labels = time interval values
+    const yControl = []     // y-axis control angles
+    const y250mg = []       // y-axis 250 mg angles
+    const y500mg = []       // y-axis 500 mg angles
     // split("\n") will separate table into an array of indiv. rows
     // slice(start, end) - return a new array starting at index start up to but not including index end
     const table = data.split("\n").slice(1)
     console.log(table)
 
     table.forEach(row => {
-        const columns = row.split(",")  // split each row on the commas (give series of values from that row)
-        const year = columns[0]         // assign that year value to the var
-        xYears.push(year)               // push the year values to year array
+        const columns = row.split(",")
+        const time = columns[0]
+        xTime.push(time)
 
-        const temp = parseFloat(columns[1])
-        yTemps.push(temp + 14)          // push temp values + 14 to store temp values (14 is to shift the values up to be visible)
+        const control = parseFloat(columns[1])
+        yControl.push(control)
 
-        const nhTemp = parseFloat(columns[2])
-        yNHTemps.push(nhTemp + 14)
-        const shTemp = parseFloat(columns[3])
-        ySHTemps.push(shTemp + 14)
-
-        /* console.log(year, temp, nhTemp, shTemp) */
+        const mg250 = parseFloat(columns[2])
+        y250mg.push(mg250)
+        const mg500 = parseFloat(columns[3])
+        y500mg.push(mg500)
     })
-    return{xYears, yTemps, yNHTemps, ySHTemps}
+    //console.log(xTime + "\n\n" + yControl + "\n\n" + y250mg + "\n\n" + y500mg)
+    return {xTime, yControl, y250mg, y500mg}
 }
 
 async function createChart(){
@@ -40,29 +39,29 @@ async function createChart(){
     const degSys = String.fromCharCode(176)
 
     const myChart = new Chart(ctx, {
-        type: "line",
+        type: "bar",
         data: {
-            labels: data.xYears,
+            labels: data.xTime,
             datasets: [
                 {
-                    label: `Combined Global Land-Surface Air and Sea-Surface water Temperature in ${degSys}C`,
-                    data: data.yTemps,
+                    label: `Average Change in Angle for the Control (0mg) Group in ${degSys}`,
+                    data: data.yControl,
                     fill: false,
                     backgroundColor: "rgba(255, 99, 132, 0.2)",
                     borderColor: "rgba(255, 99, 132, 0.5)",
                     borderWidth: 1,
                 },
                 {
-                    label: `Combined N.H. Land-Surface Air and Sea-Surface water Temperature in ${degSys}C`,
-                    data: data.yNHTemps,
+                    label: `Average Change in Angle for the 250mg Group in ${degSys}`,
+                    data: data.y250mg,
                     fill: false,
                     backgroundColor: "rgba(0, 102, 255, 0.2)",
                     borderColor: "rgba(0, 102, 255, 0.5)",
                     borderWidth: 1,
                 },
                 {
-                    label: `Combined S.H. Land-Surface Air and Sea-Surface water Temperature in ${degSys}C`,
-                    data: data.ySHTemps,
+                    label: `Average Change in Angle for the 500mg Group in ${degSys}`,
+                    data: data.y500mg,
                     fill: false,
                     backgroundColor: "rgba(0, 153, 51, 0.2)",
                     borderColor: "rgba(0, 153, 51, 0.5)",
@@ -76,16 +75,12 @@ async function createChart(){
                 x: {
                     title: {
                         display: true,
-                        text: "Year", // x-axis title
+                        text: "Time (Minutes)", // x-axis title
                         font: {
                             size: 20,
                         },
                     },
                     ticks: {
-                        callback: function(val, index){
-                            // labeling of tick marks can be controlled by code
-                            return index % 5 === 0 ? this.getLabelForValue(val) : ""
-                        },
                         font: {
                             size: 16
                         }
@@ -94,13 +89,12 @@ async function createChart(){
                 y: {
                     title: {
                         display: true,
-                        text: `Global Mean Temperatures (${degSys}C)`, // x-axis title
+                        text: `Average Change in Angle (${degSys})`, // x-axis title
                         font: {
                             size: 20,
                         },
                     },
                     ticks: {
-                        maxTicksLimit: data.yTemps.length/10,
                         font: {
                             size: 12
                         }
@@ -110,7 +104,7 @@ async function createChart(){
             plugins: { // Display options
                 title: {
                     display: true,
-                    text: "Global Mean Temperature vs. Year (since 1880)",
+                    text: "Average Change in Angle Over Time Between Control Group, 250mg Group, and 500mg Group in a One Hour Period",
                     font: {
                         size: 24
                     },
